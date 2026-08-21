@@ -34,12 +34,12 @@ cask "flagsmith" do
 
   binary "flagsmith"
 
-  postflight do
+  preflight do
     if system_command("/usr/bin/xattr", args: ["-h"]).exit_status == 0
       system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/flagsmith"]
     end
   end
-  generate_completions_from_executable "flagsmith", "completion",
+  generate_completions_from_executable "flagsmith",
     shell_parameter_format: :cobra,
     shells: [:bash, :zsh, :fish]
 
